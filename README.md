@@ -92,6 +92,10 @@ npm run dev
 
 ## Render.com-ға Деплой
 
+### ⚠️ Маңызды!
+
+Енді тек **бір сервис** қажет - `tournament-server`, ол HTML файлдарын да serve етеді!
+
 ### 1. GitHub-қа жіберу
 
 ```bash
@@ -100,35 +104,52 @@ git commit -m "Initial commit"
 git push origin main
 ```
 
-### 2. Render.com-да PostgreSQL база данныхты құру
+### 2. Render.com-да Деплой
+
+#### Вариант 1: Blueprint (render.yaml пайдалану)
 
 1. Render.com-ға кіріңіз
-2. "New +" → "PostgreSQL" басыңыз
-3. База данныхты құрыңыз
-4. Connection String-ді көшіріңіз
+2. "New +" → "Blueprint" басыңыз
+3. GitHub репозиторийді таңдаңыз
+4. Render автоматты түрде `render.yaml` файлын оқып, барлық сервистерді құрады
 
-### 3. Web Service құру
+#### Вариант 2: Қолмен Деплой
+
+**PostgreSQL база деректерін құру:**
+
+1. "New +" → "PostgreSQL" басыңыз
+2. Келесі параметрлерді орнатыңыз:
+   - **Name:** `tournament-db`
+   - **Database:** `tournament`
+   - **User:** `tournament_user`
+   - **PostgreSQL Version:** `17` ⚠️ **Маңызды!**
+   - **Plan:** `Free`
+
+**Web Service құру:**
 
 1. "New +" → "Web Service" басыңыз
 2. GitHub репозиторийді таңдаңыз
 3. Келесі параметрлерді орнатыңыз:
-   - **Name**: tournament-server
-   - **Environment**: Node
-   - **Build Command**: `cd server && npm install`
-   - **Start Command**: `cd server && npm start`
-   - **Plan**: Free
+   - **Name:** `tournament-server`
+   - **Environment:** `Node`
+   - **Root Directory:** `server` ⚠️ **МАҢЫЗДЫ!**
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+   - **Plan:** `Free`
 
-4. Environment Variables қосу:
-   - `DATABASE_URL`: PostgreSQL connection string (Render автоматически қосады)
-   - `ADMIN_PASSWORD`: нуарли07
-   - `NODE_ENV`: production
-   - `PORT`: 10000
+4. **Environment Variables:**
+   - `NODE_ENV` = `production`
+   - `DATABASE_URL` = (PostgreSQL база деректерінен автоматты түрде алынады - "Link Database" басып байланыстырыңыз)
+   - `ADMIN_PASSWORD` = `нуарли07`
 
-### 4. Frontend-ті деплойдау
+### 3. Тест
 
-Frontend (`index.html`) файлын статикалық хостингте орналастыру керек немесе Render.com-да статикалық сайт ретінде құру керек.
+Деплой аяқталғаннан кейін:
+- Негізгі бет: `https://your-server.onrender.com/`
+- Админ панелі: `https://your-server.onrender.com/admin.html`
+- API Health: `https://your-server.onrender.com/api/health`
 
-**Немесе** backend серверде статикалық файлдарды serve ету үшін `server/index.js` файлында код бар.
+**Ескерту:** Барлық HTML файлдары серверде serve етіледі, сондықтан екінші сервис қажет емес!
 
 ## API Endpoints
 
