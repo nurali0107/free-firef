@@ -28,7 +28,7 @@ export default function Home() {
       setError(null);
     } catch (err) {
       console.error('Error fetching tournaments:', err);
-      setError(err.message);
+      setError(err.response?.data?.error || err.message || 'Failed to fetch tournaments');
     } finally {
       setLoading(false);
     }

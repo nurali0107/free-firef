@@ -33,7 +33,7 @@ export default function TournamentDetail() {
       setError(null);
     } catch (err) {
       console.error('Error fetching tournament:', err);
-      setError(err.message);
+      setError(err.response?.data?.error || err.message || 'Failed to fetch tournament');
     } finally {
       setLoading(false);
     }
