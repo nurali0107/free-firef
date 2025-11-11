@@ -17,12 +17,9 @@ export default function Layout({ children, seo = {} }) {
   }, []);
 
   const changeLanguage = (newLocale) => {
-    const { asPath } = router;
-    // Remove current locale from path if present
-    const pathWithoutLocale = asPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
-    // Construct new path with locale
-    const newPath = `/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
-    router.push(newPath);
+    const { asPath, pathname, query } = router;
+    // Next.js i18n routing - push with locale option
+    router.push({ pathname, query }, asPath, { locale: newLocale });
   };
 
   const handleLogout = () => {

@@ -2,7 +2,7 @@ module.exports = {
   i18n: {
     defaultLocale: 'kz',
     locales: ['kz', 'ru', 'en'],
-    localeDetection: true,
+    localeDetection: false,
   },
   reactStrictMode: true,
   env: {

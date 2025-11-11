@@ -6,6 +6,8 @@ const { initDatabase } = require('./database');
 dotenv.config();
 
 const app = express();
+// Use PORT from environment variable (Render sets this automatically)
+// Fallback to 10000 for local development
 const PORT = process.env.PORT || 10000;
 
 // Middleware
@@ -39,8 +41,10 @@ app.get('/api/health', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+// Bind to 0.0.0.0 to accept connections from Render's load balancer
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Listening on 0.0.0.0:${PORT}`);
   console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`Database: ${process.env.DATABASE_URL ? 'Connected' : 'Not configured'}`);
 });
