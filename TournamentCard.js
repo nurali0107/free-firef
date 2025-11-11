@@ -1,12 +1,19 @@
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useTranslation } from './lib/translations';
 
 export default function TournamentCard({ tournament }) {
-  const { t, i18n } = useTranslation('common');
+  const { t, locale } = useTranslation();
   const router = useRouter();
-  const locale = i18n.language;
-  const title = tournament.title[locale] || tournament.title.kz;
+  // Handle both old format (titleObj) and new format (title as string or object)
+  let title = 'Tournament';
+  if (tournament.titleObj) {
+    title = tournament.titleObj[locale] || tournament.titleObj.kz || tournament.titleObj.en || tournament.titleObj.ru || 'Tournament';
+  } else if (typeof tournament.title === 'object') {
+    title = tournament.title[locale] || tournament.title.kz || tournament.title.en || tournament.title.ru || 'Tournament';
+  } else {
+    title = tournament.title || 'Tournament';
+  }
 
   return (
     <div className="tournament-card">
@@ -19,17 +26,17 @@ export default function TournamentCard({ tournament }) {
 
       <div className="tournament-info">
         <p><strong>{t('category')}:</strong> {t(tournament.category)}</p>
-        <p><strong>{t('date')}:</strong> {new Date(tournament.date).toLocaleDateString()}</p>
-        <p><strong>{t('time')}:</strong> {tournament.time}</p>
-        <p><strong>{t('currentPlayers')}:</strong> {tournament.currentPlayers} / {tournament.maxPlayers}</p>
-        <p><strong>{t('status')}:</strong> {t(tournament.status)}</p>
+        <p><strong>{t('date')}:</strong> {tournament.date ? new Date(tournament.date).toLocaleDateString(locale === 'kz' ? 'kk-KZ' : locale === 'ru' ? 'ru-RU' : 'en-US') : '-'}</p>
+        <p><strong>{t('time')}:</strong> {tournament.time || '-'}</p>
+        <p><strong>{t('currentPlayers')}:</strong> {tournament.currentPlayers || 0} / {tournament.maxPlayers || 0}</p>
+        <p><strong>{t('status')}:</strong> {tournament.status ? t(tournament.status) : '-'}</p>
       </div>
 
-      <div className="tournament-actions">
-        <Link href={`/tournaments/${tournament._id}`}>
-          <a className="view-button">{t('viewDetails')}</a>
-        </Link>
-      </div>
+          <div className="tournament-actions">
+            <Link href={`/tournaments/${tournament.id || tournament._id}`}>
+              <a className="view-button">{t('viewDetails')}</a>
+            </Link>
+          </div>
 
       <style jsx>{`
         .tournament-card {

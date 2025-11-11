@@ -1,13 +1,12 @@
-import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import SEO from './SEO';
+import { useTranslation } from './lib/translations';
 
 export default function Layout({ children, seo = {} }) {
-  const { t, i18n } = useTranslation('common');
+  const { t, locale } = useTranslation();
   const router = useRouter();
-  const { locale } = router;
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -17,8 +16,13 @@ export default function Layout({ children, seo = {} }) {
     }
   }, []);
 
-  const changeLanguage = (locale) => {
-    router.push(router.pathname, router.asPath, { locale });
+  const changeLanguage = (newLocale) => {
+    const { asPath } = router;
+    // Remove current locale from path if present
+    const pathWithoutLocale = asPath.replace(/^\/[a-z]{2}(\/|$)/, '/');
+    // Construct new path with locale
+    const newPath = `/${newLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
+    router.push(newPath);
   };
 
   const handleLogout = () => {
@@ -56,7 +60,7 @@ export default function Layout({ children, seo = {} }) {
               <div className="language-switcher">
                 <button
                   onClick={() => changeLanguage('kz')}
-                  className={i18n.language === 'kz' ? 'active' : ''}
+                  className={locale === 'kz' ? 'active' : ''}
                   aria-label="Қазақ тілі"
                   title="Қазақ тілі"
                 >
@@ -64,7 +68,7 @@ export default function Layout({ children, seo = {} }) {
                 </button>
                 <button
                   onClick={() => changeLanguage('ru')}
-                  className={i18n.language === 'ru' ? 'active' : ''}
+                  className={locale === 'ru' ? 'active' : ''}
                   aria-label="Русский язык"
                   title="Русский язык"
                 >
@@ -72,7 +76,7 @@ export default function Layout({ children, seo = {} }) {
                 </button>
                 <button
                   onClick={() => changeLanguage('en')}
-                  className={i18n.language === 'en' ? 'active' : ''}
+                  className={locale === 'en' ? 'active' : ''}
                   aria-label="English"
                   title="English"
                 >

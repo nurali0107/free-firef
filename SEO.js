@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 
 export default function SEO({
   title,
@@ -11,9 +10,8 @@ export default function SEO({
   type = 'website',
   robots = 'index, follow'
 }) {
-  const { t } = useTranslation('common');
   const router = useRouter();
-  const { locale, asPath } = router;
+  const { locale = 'kz', asPath } = router;
 
   // Site names for each language
   const siteNames = {

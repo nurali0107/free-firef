@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from './lib/translations';
 
 export default function RegistrationForm({ tournament, onSubmit, onCancel }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     playerId: '',
     playerName: '',
@@ -110,25 +110,28 @@ export default function RegistrationForm({ tournament, onSubmit, onCancel }) {
       {tournament.category === 'squad' && (
         <div className="form-group">
           <label>{t('teammates')} (3 {t('players')}) *</label>
-          {[0, 1, 2].map((index) => (
-            <div key={index} style={{ marginBottom: '0.5rem' }}>
-              <input
-                type="text"
-                value={formData.teamMembers[index]?.playerId || ''}
-                onChange={(e) => handleTeamMemberChange(index, 'playerId', e.target.value)}
-                required
-                placeholder={`${t('teammate' + (index + 1))} ID`}
-                style={{ marginBottom: '0.25rem' }}
-              />
-              <input
-                type="text"
-                value={formData.teamMembers[index]?.playerName || ''}
-                onChange={(e) => handleTeamMemberChange(index, 'playerName', e.target.value)}
-                required
-                placeholder={`${t('teammate' + (index + 1))} ${t('playerName')}`}
-              />
-            </div>
-          ))}
+          {[0, 1, 2].map((index) => {
+            const teammateKey = `teammate${index + 1}`;
+            return (
+              <div key={index} style={{ marginBottom: '0.5rem' }}>
+                <input
+                  type="text"
+                  value={formData.teamMembers[index]?.playerId || ''}
+                  onChange={(e) => handleTeamMemberChange(index, 'playerId', e.target.value)}
+                  required
+                  placeholder={`${t(teammateKey)} ID`}
+                  style={{ marginBottom: '0.25rem' }}
+                />
+                <input
+                  type="text"
+                  value={formData.teamMembers[index]?.playerName || ''}
+                  onChange={(e) => handleTeamMemberChange(index, 'playerName', e.target.value)}
+                  required
+                  placeholder={`${t(teammateKey)} ${t('playerName')}`}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
 

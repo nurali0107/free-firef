@@ -18,6 +18,22 @@ services:
           property: connectionString
       - key: ADMIN_PASSWORD
         sync: false
+        value: нуарли07
+
+  - type: web
+    name: tournament-client
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: yarn install && yarn build
+    startCommand: yarn start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://tournament-server.onrender.com/api
+      - key: NEXT_PUBLIC_SITE_URL
+        value: https://tournament-client.onrender.com
 
 databases:
   - name: tournament-db

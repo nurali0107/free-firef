@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useTranslation } from './lib/translations';
 
 export default function TournamentForm({ onSubmit, onCancel }) {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     title: { kz: '', ru: '', en: '' },
     game: 'freefire',
