@@ -1,7 +1,14 @@
 const { pool } = require('../database');
 
 class Tournament {
+  static checkDatabase() {
+    if (!pool) {
+      throw new Error('Database is not configured. Please set DATABASE_URL in .env file');
+    }
+  }
+
   static async findAll() {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT 
         t.*,
@@ -16,6 +23,7 @@ class Tournament {
   }
 
   static async findById(id) {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT 
         t.*,
@@ -34,6 +42,7 @@ class Tournament {
   }
 
   static async findUpcoming() {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT 
         t.*,
@@ -50,6 +59,7 @@ class Tournament {
   }
 
   static async create(data) {
+    this.checkDatabase();
     const {
       title_kz,
       title_ru,
@@ -84,6 +94,7 @@ class Tournament {
   }
 
   static async update(id, data) {
+    this.checkDatabase();
     const updates = [];
     const values = [];
     let paramCount = 1;
@@ -163,6 +174,7 @@ class Tournament {
   }
 
   static async delete(id) {
+    this.checkDatabase();
     // Get tournament data before deleting
     const tournament = await this.findById(id);
     if (!tournament) {
@@ -209,6 +221,7 @@ class Tournament {
   }
 
   static async getHistory() {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT * FROM tournament_history
       ORDER BY deleted_at DESC

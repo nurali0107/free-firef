@@ -486,7 +486,15 @@
         // API Base URL - Change this to your Render.com server URL
         // For local development: http://localhost:5000/api
         // For production: https://your-server.onrender.com/api
-        const API_BASE_URL = window.API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        // If opened as file://, use localhost:5000
+        let API_BASE_URL = window.API_URL;
+        if (!API_BASE_URL) {
+            if (window.location.protocol === 'file:' || window.location.hostname === '' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                API_BASE_URL = 'http://localhost:5000/api';
+            } else {
+                API_BASE_URL = '/api';
+            }
+        }
         
         // Tournaments storage
         let tournaments = [];

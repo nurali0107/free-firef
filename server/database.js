@@ -3,23 +3,38 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
+// Create pool only if DATABASE_URL is provided
+let pool = null;
 
-// Test connection
-pool.on('connect', () => {
-  console.log('PostgreSQL connected successfully');
-});
+if (process.env.DATABASE_URL) {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  });
 
-pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err);
-  process.exit(-1);
-});
+  // Test connection
+  pool.on('connect', () => {
+    console.log('PostgreSQL connected successfully');
+  });
+
+  pool.on('error', (err) => {
+    console.error('Unexpected error on idle client', err);
+    // Don't exit in production, just log the error
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Database connection error. Server will continue but database operations will fail.');
+    }
+  });
+} else {
+  console.warn('⚠️  DATABASE_URL not set. Database operations will not work.');
+  console.warn('   Set DATABASE_URL in .env file to enable database features.');
+}
 
 // Create tables if they don't exist
 const createTables = async () => {
+  if (!pool) {
+    throw new Error('Database pool is not initialized. Please set DATABASE_URL in .env file');
+  }
+  
   try {
     // Tournaments table
     await pool.query(`

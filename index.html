@@ -10,6 +10,13 @@
     <meta name="robots" content="index, follow">
     <meta name="language" content="Kazakh, Russian">
     <meta name="revisit-after" content="7 days">
+    <meta name="geo.region" content="KZ">
+    <meta name="geo.placename" content="Kazakhstan">
+    <meta name="yandex-verification" content="">
+    <meta name="google-site-verification" content="">
+    
+    <!-- Yandex Webmaster -->
+    <meta name="yandex" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -34,6 +41,12 @@
     <link rel="alternate" hreflang="kk" href="https://your-domain.onrender.com/?lang=kz">
     <link rel="alternate" hreflang="ru" href="https://your-domain.onrender.com/?lang=ru">
     <link rel="alternate" hreflang="x-default" href="https://your-domain.onrender.com/">
+    
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
     <style>
         * {
@@ -588,7 +601,15 @@
         // API Base URL - автоматически определяется по hostname
         // For local development: http://localhost:5000/api
         // For production: /api (same domain)
-        const API_BASE_URL = window.API_URL || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:5000/api' : '/api');
+        // If opened as file://, use localhost:5000
+        let API_BASE_URL = window.API_URL;
+        if (!API_BASE_URL) {
+            if (window.location.protocol === 'file:' || window.location.hostname === '' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                API_BASE_URL = 'http://localhost:5000/api';
+            } else {
+                API_BASE_URL = '/api';
+            }
+        }
         
         // Tournaments storage
         let tournaments = [];

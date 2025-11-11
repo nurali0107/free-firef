@@ -1,18 +1,16 @@
-# robots.txt for Free Fire and PUBG Tournaments
+# robots.txt for Free Fire Tournaments
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://your-domain.com/sitemap.xml
+Sitemap: https://your-domain.onrender.com/sitemap.xml
 
 # Disallow admin pages
-Disallow: /admin/
+Disallow: /admin.html
 Disallow: /api/
 
 # Allow important pages
 Allow: /
-Allow: /tournaments
-Allow: /kz
-Allow: /ru
-Allow: /en
+Allow: /?lang=kz
+Allow: /?lang=ru

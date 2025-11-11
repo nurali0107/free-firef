@@ -39,3 +39,4 @@ databases:
     plan: free
     databaseName: tournament
     user: tournament_user
+    postgresMajorVersion: 17

@@ -1,7 +1,14 @@
 const { pool } = require('../database');
 
 class Registration {
+  static checkDatabase() {
+    if (!pool) {
+      throw new Error('Database is not configured. Please set DATABASE_URL in .env file');
+    }
+  }
+
   static async findByTournamentId(tournamentId) {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT * FROM registrations
       WHERE tournament_id = $1
@@ -11,6 +18,7 @@ class Registration {
   }
 
   static async findByTournamentAndPlayer(tournamentId, playerId) {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT * FROM registrations
       WHERE tournament_id = $1 AND player_id = $2
@@ -24,6 +32,7 @@ class Registration {
   }
 
   static async countByTournamentId(tournamentId, status = 'approved') {
+    this.checkDatabase();
     const result = await pool.query(`
       SELECT COUNT(*) as count
       FROM registrations
@@ -33,6 +42,7 @@ class Registration {
   }
 
   static async create(data) {
+    this.checkDatabase();
     const {
       tournament_id,
       player_id,
@@ -65,6 +75,7 @@ class Registration {
   }
 
   static async update(id, data) {
+    this.checkDatabase();
     const updates = [];
     const values = [];
     let paramCount = 1;
@@ -111,6 +122,7 @@ class Registration {
   }
 
   static async delete(id) {
+    this.checkDatabase();
     const result = await pool.query(`
       DELETE FROM registrations
       WHERE id = $1
@@ -121,6 +133,7 @@ class Registration {
   }
 
   static async deleteByTournamentAndPlayer(tournamentId, playerId) {
+    this.checkDatabase();
     const result = await pool.query(`
       DELETE FROM registrations
       WHERE tournament_id = $1 AND player_id = $2
