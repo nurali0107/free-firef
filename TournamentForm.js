@@ -4,12 +4,12 @@ import { useTranslation } from 'next-i18next';
 export default function TournamentForm({ onSubmit, onCancel }) {
   const { t } = useTranslation('common');
   const [formData, setFormData] = useState({
-    title: { kz: '', ru: '' },
+    title: { kz: '', ru: '', en: '' },
     game: 'freefire',
     category: 'solo',
     date: '',
     time: '',
-    rules: { kz: '', ru: '' },
+    rules: { kz: '', ru: '', en: '' },
     whatsappLink: '',
     requireScreenRecord: true
   });
@@ -44,6 +44,19 @@ export default function TournamentForm({ onSubmit, onCancel }) {
           onChange={(e) => setFormData({
             ...formData,
             title: { ...formData.title, ru: e.target.value }
+          })}
+          required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>{t('titleEnglish')} *</label>
+        <input
+          type="text"
+          value={formData.title.en}
+          onChange={(e) => setFormData({
+            ...formData,
+            title: { ...formData.title, en: e.target.value }
           })}
           required
         />
@@ -134,6 +147,20 @@ export default function TournamentForm({ onSubmit, onCancel }) {
           rows="5"
           required
           placeholder="Введите правила..."
+        />
+      </div>
+
+      <div className="form-group">
+        <label>{t('rulesEnglish')} *</label>
+        <textarea
+          value={formData.rules.en}
+          onChange={(e) => setFormData({
+            ...formData,
+            rules: { ...formData.rules, en: e.target.value }
+          })}
+          rows="5"
+          required
+          placeholder="Enter rules..."
         />
       </div>
 

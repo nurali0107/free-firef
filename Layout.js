@@ -7,6 +7,7 @@ import SEO from './SEO';
 export default function Layout({ children, seo = {} }) {
   const { t, i18n } = useTranslation('common');
   const router = useRouter();
+  const { locale } = router;
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -56,14 +57,26 @@ export default function Layout({ children, seo = {} }) {
                 <button
                   onClick={() => changeLanguage('kz')}
                   className={i18n.language === 'kz' ? 'active' : ''}
+                  aria-label="Қазақ тілі"
+                  title="Қазақ тілі"
                 >
                   Қаз
                 </button>
                 <button
                   onClick={() => changeLanguage('ru')}
                   className={i18n.language === 'ru' ? 'active' : ''}
+                  aria-label="Русский язык"
+                  title="Русский язык"
                 >
                   Рус
+                </button>
+                <button
+                  onClick={() => changeLanguage('en')}
+                  className={i18n.language === 'en' ? 'active' : ''}
+                  aria-label="English"
+                  title="English"
+                >
+                  En
                 </button>
               </div>
 
@@ -85,7 +98,7 @@ export default function Layout({ children, seo = {} }) {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2024 {t('title')}. Барлық құқықтар қорғалған.</p>
+          <p>&copy; 2024 {t('title')}. {locale === 'kz' ? 'Барлық құқықтар қорғалған.' : locale === 'ru' ? 'Все права защищены.' : 'All rights reserved.'}</p>
         </div>
       </footer>
 
@@ -164,11 +177,26 @@ export default function Layout({ children, seo = {} }) {
           background: transparent;
           color: white;
           cursor: pointer;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          font-size: 0.875rem;
+          font-weight: 500;
+          min-width: 45px;
+        }
+
+        .language-switcher button:hover {
+          background: rgba(255, 255, 255, 0.1);
         }
 
         .language-switcher button.active {
           background: white;
           color: #1a1a1a;
+          font-weight: 600;
+        }
+
+        .language-switcher button:focus {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
         }
 
         .login-button,
