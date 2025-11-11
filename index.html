@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fire Турнирлері - Қазақстан | Free Fire Турниры - Казахстан</title>
+    <meta name="description" content="Free Fire турнирлері Қазақстан үшін. Соло, Дуо және Отряд турнирлеріне қатысыңыз. Тіркеліңіз және жеңіңіз! | Турниры Free Fire для Казахстана. Примите участие в Соло, Дуо и Отряд турнирах. Зарегистрируйтесь и побеждайте!">
+    <meta name="keywords" content="free fire турнир, free fire қазақстан, free fire соло, free fire дуо, free fire отряд, турнир free fire, free fire tournament kazakhstan, free fire solo, free fire duo, free fire squad, турниры free fire казахстан">
+    <meta name="author" content="Free Fire Турнирлері">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Kazakh, Russian">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.onrender.com/">
+    <meta property="og:title" content="Free Fire Турнирлері - Қазақстан | Free Fire Турниры - Казахстан">
+    <meta property="og:description" content="Free Fire турнирлері Қазақстан үшін. Соло, Дуо және Отряд турнирлеріне қатысыңыз. | Турниры Free Fire для Казахстана. Примите участие в Соло, Дуо и Отряд турнирах.">
+    <meta property="og:image" content="https://your-domain.onrender.com/og-image.jpg">
+    <meta property="og:locale" content="kk_KZ">
+    <meta property="og:locale:alternate" content="ru_RU">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.onrender.com/">
+    <meta property="twitter:title" content="Free Fire Турнирлері - Қазақстан">
+    <meta property="twitter:description" content="Free Fire турнирлері Қазақстан үшін. Соло, Дуо және Отряд турнирлеріне қатысыңыз.">
+    <meta property="twitter:image" content="https://your-domain.onrender.com/og-image.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://your-domain.onrender.com/">
+    
+    <!-- Alternate languages -->
+    <link rel="alternate" hreflang="kk" href="https://your-domain.onrender.com/?lang=kz">
+    <link rel="alternate" hreflang="ru" href="https://your-domain.onrender.com/?lang=ru">
+    <link rel="alternate" hreflang="x-default" href="https://your-domain.onrender.com/">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .language-switcher button {
+            padding: 0.5rem 1rem;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .language-switcher button.active {
+            background: white;
+            color: #1a1a1a;
+        }
+        
+        .admin-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .admin-btn:hover {
+            background: #45a049;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #333;
+        }
+        
+        .tournaments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tournament-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid #FF6B35;
+        }
+        
+        .tournament-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .tournament-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .tournament-info {
+            margin-bottom: 1rem;
+        }
+        
+        .tournament-info p {
+            margin: 0.5rem 0;
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .players-count {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FF6B35;
+            margin: 1rem 0;
+        }
+        
+        .view-button {
+            display: inline-block;
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .view-button:hover {
+            background: linear-gradient(135deg, #45a049 0%, #388e3c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+        
+        .view-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .submit-button:hover {
+            background: #45a049;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .error-message {
+            color: #f44336;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background: #da190b;
+        }
+        
+        .registration-form {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #eee;
+        }
+        
+        .whatsapp-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .whatsapp-link:hover {
+            background: #20BA5A;
+        }
+        
+        .full-tournament {
+            color: #f44336;
+            font-weight: bold;
+            padding: 1rem;
+            background: #ffebee;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .tournaments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span>🎮</span>
+                <span data-i18n="siteTitle">Free Fire Турнирлері</span>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button onclick="changeLanguage('kz')" id="langKz" class="active">Қаз</button>
+                    <button onclick="changeLanguage('ru')" id="langRu">Рус</button>
+                </div>
+                <a href="admin.html" class="admin-btn" style="text-decoration: none; display: inline-block;" data-i18n="admin">Админ</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 data-i18n="heroTitle">Free Fire Соло Турнирлері</h1>
+            <p data-i18n="heroSubtitle">Қазақстандық ойыншылар үшін турнирлер платформасы</p>
+        </div>
+
+        <!-- Tournaments Section -->
+        <div class="container">
+            <h2 class="section-title" data-i18n="upcomingTournaments">Алдағы Турнирлер</h2>
+            <div class="tournaments-grid" id="tournamentsGrid">
+                <!-- Tournaments will be loaded here -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 <span data-i18n="siteTitle">Free Fire Турнирлері</span>. <span data-i18n="allRightsReserved">Барлық құқықтар қорғалған.</span></p>
+    </footer>
+
+    <!-- View Tournament Modal -->
+    <div id="viewTournamentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeViewTournament()">&times;</span>
+            <div id="tournamentDetails">
+                <!-- Tournament details will be loaded here -->
+            </div>
+            <div id="registrationForm">
+                <!-- Registration form will be loaded here dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            kz: {
+                siteTitle: 'Free Fire Турнирлері',
+                admin: 'Админ',
+                heroTitle: 'Free Fire Соло Турнирлері',
+                heroSubtitle: 'Қазақстандық ойыншылар үшін турнирлер платформасы',
+                upcomingTournaments: 'Алдағы Турнирлер',
+                allRightsReserved: 'Барлық құқықтар қорғалған',
+                registrationSuccess: 'Сіз турнирге сәтті тіркелдіңіз!',
+                tournamentTitle: 'Турнир атауы:',
+                tournamentTitlePlaceholder: 'Мысалы: Free Fire Соло Турнирі',
+                date: 'Күні:',
+                time: 'Уақыты (сағат):',
+                maxPlayers: 'Максималды ойыншылар саны:',
+                whatsappLink: 'WhatsApp топ сілтемесі:',
+                whatsappLinkPlaceholder: 'https://chat.whatsapp.com/...',
+                whatsappLinkNote: 'Турнирге қатысушылар осы сілтеме арқылы WhatsApp тобына қосылады',
+                rules: 'Ережелер:',
+                rulesPlaceholder: 'Турнир ережелерін енгізіңіз...',
+                createButton: 'Турнир құру',
+                tournamentCreated: 'Турнир сәтті құрылды!',
+                fillAllFields: 'Барлық өрістерді толтырыңіз!',
+                noTournaments: 'Турнирлер жоқ',
+                players: 'Ойыншылар:',
+                registeredPlayers: 'Тіркелген ойыншылар',
+                noRegisteredPlayers: 'Тіркелген ойыншылар жоқ',
+                addPlayer: 'Ойыншы қосу',
+                playerId: 'Ойын ID',
+                add: 'Қосу',
+                delete: 'Жою',
+                deleteTournament: 'Турнирді жою',
+                deletePlayer: 'Ойыншыны жою',
+                confirmDelete: 'Жоюға сенімдісіз бе?',
+                playerAdded: 'Ойыншы сәтті қосылды!',
+                playerDeleted: 'Ойыншы жойылды!',
+                playerExists: 'Бұл ID бұрын қосылған!',
+                tournamentFull: 'Турнир толып кетті!',
+                tournamentFullMessage: 'Турнир толып кетті',
+                joinWhatsApp: 'WhatsApp тобына қосылу',
+                getWhatsAppLink: 'WhatsApp сілтемесін алу',
+                gameId: 'Ойын ID (Free Fire):',
+                gameIdPlaceholder: 'Ойын ID-ңызды енгізіңіз',
+                gameIdNote: 'Free Fire ойынындағы ID-ңызды енгізіңіз',
+                enterGameId: 'Ойын ID-сын енгізіңіз!',
+                rulesTitle: 'Ережелер:',
+                viewDetails: 'Толығырақ',
+                back: 'Артқа'
+            },
+            ru: {
+                siteTitle: 'Турниры Free Fire',
+                admin: 'Админ',
+                heroTitle: 'Турниры Free Fire Соло',
+                heroSubtitle: 'Платформа для турниров для игроков из Казахстана',
+                upcomingTournaments: 'Предстоящие Турниры',
+                allRightsReserved: 'Все права защищены',
+                tournamentTitle: 'Название турнира:',
+                tournamentTitlePlaceholder: 'Например: Турнир Free Fire Соло',
+                date: 'Дата:',
+                time: 'Время (час):',
+                maxPlayers: 'Максимальное количество игроков:',
+                whatsappLink: 'Ссылка на WhatsApp группу:',
+                whatsappLinkPlaceholder: 'https://chat.whatsapp.com/...',
+                whatsappLinkNote: 'Участники турнира присоединяются к WhatsApp группе по этой ссылке',
+                rules: 'Правила:',
+                rulesPlaceholder: 'Введите правила турнира...',
+                createButton: 'Создать турнир',
+                tournamentCreated: 'Турнир успешно создан!',
+                registrationSuccess: 'Вы успешно зарегистрировались на турнир!',
+                fillAllFields: 'Заполните все поля!',
+                noTournaments: 'Нет турниров',
+                players: 'Игроки:',
+                registeredPlayers: 'Зарегистрированные игроки',
+                noRegisteredPlayers: 'Нет зарегистрированных игроков',
+                addPlayer: 'Добавить игрока',
+                playerId: 'Игровой ID',
+                add: 'Добавить',
+                delete: 'Удалить',
+                deleteTournament: 'Удалить турнир',
+                deletePlayer: 'Удалить игрока',
+                confirmDelete: 'Вы уверены, что хотите удалить?',
+                playerAdded: 'Игрок успешно добавлен!',
+                playerDeleted: 'Игрок удален!',
+                playerExists: 'Этот ID уже добавлен!',
+                tournamentFull: 'Турнир заполнен!',
+                tournamentFullMessage: 'Турнир заполнен',
+                joinWhatsApp: 'Присоединиться к WhatsApp группе',
+                getWhatsAppLink: 'Получить ссылку WhatsApp',
+                gameId: 'Игровой ID (Free Fire):',
+                gameIdPlaceholder: 'Введите ваш игровой ID',
+                gameIdNote: 'Введите ваш ID в игре Free Fire',
+                enterGameId: 'Введите игровой ID!',
+                rulesTitle: 'Правила:',
+                viewDetails: 'Подробнее',
+                back: 'Назад'
+            }
+        };
+
+        // Current language
+        let currentLanguage = localStorage.getItem('language') || 'kz';
+        
+        const MAX_PLAYERS_SOLO = 50;
+        
+        // API Base URL - автоматически определяется по hostname
+        // For local development: http://localhost:5000/api
+        // For production: /api (same domain)
+        const API_BASE_URL = window.API_URL || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:5000/api' : '/api');
+        
+        // Tournaments storage
+        let tournaments = [];
+        let currentTournamentIndex = null;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLanguage);
+            loadTournaments();
+        });
+        
+        // Load tournaments from API
+        async function loadTournaments() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/tournaments/upcoming/list?lang=${currentLanguage}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tournaments');
+                }
+                const data = await response.json();
+                tournaments = data;
+                renderTournaments();
+            } catch (error) {
+                console.error('Error loading tournaments:', error);
+                // Fallback to empty state
+                tournaments = [];
+                renderTournaments();
+            }
+        }
+        
+        // Render tournaments
+        function renderTournaments() {
+            const grid = document.getElementById('tournamentsGrid');
+            if (tournaments.length === 0) {
+                grid.innerHTML = `<p style="text-align: center; grid-column: 1/-1; padding: 2rem; color: #666;">${t('noTournaments')}</p>`;
+                return;
+            }
+
+            grid.innerHTML = tournaments.map((tournament, index) => {
+                const date = new Date(tournament.date);
+                const formattedDate = date.toLocaleDateString(currentLanguage === 'kz' ? 'kk-KZ' : 'ru-RU', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                const time = tournament.time;
+                const playersCount = tournament.currentPlayers || 0;
+                const isFull = playersCount >= tournament.maxPlayers;
+                
+                return `
+                    <div class="tournament-card">
+                        <h3 class="tournament-title">${tournament.title}</h3>
+                        <div class="tournament-info">
+                            <p><strong>${t('date')}</strong> ${formattedDate}</p>
+                            <p><strong>${t('time')}</strong> ${time}</p>
+                            <div class="players-count">
+                                ${t('players')} ${playersCount} / ${tournament.maxPlayers}
+                            </div>
+                            ${isFull ? `<p style="color: #f44336; font-weight: bold;">${t('tournamentFullMessage')}</p>` : ''}
+                        </div>
+                        <button class="view-button" onclick="viewTournament(${tournament.id})" ${isFull ? 'disabled' : ''}>
+                            ${isFull ? t('tournamentFullMessage') : t('viewDetails')}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Language functions
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            setLanguage(lang);
+            loadTournaments();
+            
+            // Update meta tags
+            updateMetaTags(lang);
+        }
+        
+        // Update meta tags based on language
+        function updateMetaTags(lang) {
+            if (lang === 'kz') {
+                document.title = 'Free Fire Турнирлері - Қазақстан';
+                document.querySelector('meta[name="description"]').content = 'Free Fire турнирлері Қазақстан үшін. Соло, Дуо және Отряд турнирлеріне қатысыңыз. Тіркеліңіз және жеңіңіз!';
+            } else {
+                document.title = 'Free Fire Турниры - Казахстан';
+                document.querySelector('meta[name="description"]').content = 'Турниры Free Fire для Казахстана. Примите участие в Соло, Дуо и Отряд турнирах. Зарегистрируйтесь и побеждайте!';
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update language buttons
+            document.getElementById('langKz').classList.toggle('active', lang === 'kz');
+            document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+        }
+
+        function t(key) {
+            return translations[currentLanguage][key] || key;
+        }
+
+
+        function updatePlaceholders() {
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLanguage][key]) {
+                    el.placeholder = translations[currentLanguage][key];
+                }
+            });
+        }
+
+        // View tournament
+        async function viewTournament(tournamentId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}?lang=${currentLanguage}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tournament');
+                }
+                const tournament = await response.json();
+                currentTournamentIndex = tournamentId;
+                
+                const date = new Date(tournament.date);
+                const formattedDate = date.toLocaleDateString(currentLanguage === 'kz' ? 'kk-KZ' : 'ru-RU', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                const playersCount = tournament.currentPlayers || 0;
+                const isFull = playersCount >= tournament.maxPlayers;
+            
+            const detailsHTML = `
+                <h2>${tournament.title}</h2>
+                <div class="tournament-info">
+                    <p><strong>${t('date')}</strong> ${formattedDate}</p>
+                    <p><strong>${t('time')}</strong> ${tournament.time}</p>
+                    <div class="players-count">
+                        ${t('players')} ${playersCount} / ${tournament.maxPlayers}
+                    </div>
+                    ${isFull ? `<div class="full-tournament">${t('tournamentFullMessage')}</div>` : ''}
+                    <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border-radius: 8px;">
+                        <strong>${t('rulesTitle')}</strong>
+                        <p style="white-space: pre-line; margin-top: 0.5rem;">${tournament.rules}</p>
+                    </div>
+                </div>
+            `;
+            
+                // Check if current player is already registered
+                const currentPlayerId = localStorage.getItem('lastPlayerId') || '';
+                let isCurrentPlayerRegistered = false;
+                
+                if (currentPlayerId) {
+                    try {
+                        const checkResponse = await fetch(`${API_BASE_URL}/registrations/check?tournamentId=${tournamentId}&playerId=${currentPlayerId}`);
+                        if (checkResponse.ok) {
+                            const checkData = await checkResponse.json();
+                            isCurrentPlayerRegistered = checkData.registered;
+                        }
+                    } catch (error) {
+                        console.error('Error checking registration:', error);
+                    }
+                }
+                
+                // Registration form - only show if not full and player not registered
+                const registrationFormHTML = isFull ? `<div class="full-tournament">${t('tournamentFullMessage')}</div>` : (isCurrentPlayerRegistered && tournament.whatsappLink ? `
+                    <div class="registration-form">
+                        <div style="padding: 1.5rem; background: #25D366; border-radius: 8px; text-align: center;">
+                            <p style="color: white; margin-bottom: 1rem; font-weight: bold; font-size: 1.1rem;">${t('registrationSuccess')}</p>
+                            <a href="${tournament.whatsappLink}" target="_blank" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; display: block; padding: 1rem; background: rgba(255,255,255,0.2); border-radius: 8px; margin-top: 1rem;">
+                                📱 ${t('joinWhatsApp')}
+                            </a>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="registration-form" id="registrationFormContainer">
+                        <h3>${t('joinWhatsApp')}</h3>
+                        <form id="registrationFormElement" onsubmit="handleGetWhatsAppLink(event, ${tournamentId})">
+                            <div class="form-group">
+                                <label>${t('gameId')}</label>
+                                <input type="text" id="playerId" required data-i18n-placeholder="gameIdPlaceholder">
+                                <small style="color: #666; display: block; margin-top: 0.5rem;">${t('gameIdNote')}</small>
+                            </div>
+                            <button type="submit" class="submit-button">${t('getWhatsAppLink')}</button>
+                        </form>
+                        <div id="whatsappLinkContainer" style="display: none; margin-top: 1.5rem;">
+                            ${tournament.whatsappLink ? `
+                                <div style="padding: 1.5rem; background: #25D366; border-radius: 8px; text-align: center;">
+                                    <p style="color: white; margin-bottom: 1rem; font-weight: bold; font-size: 1.1rem;">${t('registrationSuccess')}</p>
+                                    <a href="${tournament.whatsappLink}" target="_blank" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; display: block; padding: 1rem; background: rgba(255,255,255,0.2); border-radius: 8px; margin-top: 1rem;">
+                                        📱 ${t('joinWhatsApp')}
+                                    </a>
+                                </div>
+                            ` : `<p style="color: #666; text-align: center;">${t('whatsappLink')} ${t('noTournaments')}</p>`}
+                        </div>
+                    </div>
+                `);
+                
+                document.getElementById('tournamentDetails').innerHTML = detailsHTML;
+                document.getElementById('registrationForm').innerHTML = registrationFormHTML;
+                document.getElementById('viewTournamentModal').style.display = 'block';
+                
+                updatePlaceholders();
+            } catch (error) {
+                console.error('Error loading tournament:', error);
+                alert('Турнирді жүктеу кезінде қате пайда болды');
+            }
+        }
+
+        function closeViewTournament() {
+            document.getElementById('viewTournamentModal').style.display = 'none';
+            currentTournamentIndex = null;
+        }
+
+        // Registration (register player and show WhatsApp link)
+        async function handleGetWhatsAppLink(event, tournamentId) {
+            event.preventDefault();
+            
+            if (!tournamentId) {
+                alert('Турнир табылмады');
+                return;
+            }
+            
+            const playerId = document.getElementById('playerId').value.trim();
+            
+            if (!playerId) {
+                alert(t('enterGameId'));
+                return;
+            }
+            
+            try {
+                // Register player
+                const response = await fetch(`${API_BASE_URL}/registrations`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        tournamentId: tournamentId,
+                        playerId: playerId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    if (data.error && data.error.includes('already registered')) {
+                        // Player already registered, show WhatsApp link
+                        const container = document.getElementById('whatsappLinkContainer');
+                        const formElement = document.getElementById('registrationFormElement');
+                        if (container) {
+                            if (formElement) {
+                                formElement.style.display = 'none';
+                            }
+                            container.style.display = 'block';
+                            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    }
+                    alert(data.error || t('playerExists'));
+                    return;
+                }
+                
+                // Save player ID to localStorage
+                localStorage.setItem('lastPlayerId', playerId);
+                
+                // Hide form and show WhatsApp link
+                const formElement = document.getElementById('registrationFormElement');
+                if (formElement) {
+                    formElement.style.display = 'none';
+                }
+                
+                const container = document.getElementById('whatsappLinkContainer');
+                if (container && data.tournament && data.tournament.whatsappLink) {
+                    container.style.display = 'block';
+                    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                
+                // Update tournament list
+                loadTournaments();
+                
+                // Show success message
+                alert(t('registrationSuccess'));
+            } catch (error) {
+                console.error('Error registering:', error);
+                alert('Тіркелу кезінде қате пайда болды');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const viewModal = document.getElementById('viewTournamentModal');
+            
+            if (event.target == viewModal) {
+                closeViewTournament();
+            }
+        }
+    </script>
+</body>
+</html>

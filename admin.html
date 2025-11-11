@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ Панелі - Free Fire Турнирлері</title>
+    <meta name="description" content="Админ панель - турнирлерді басқару">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .language-switcher button {
+            padding: 0.5rem 1rem;
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .language-switcher button.active {
+            background: white;
+            color: #1a1a1a;
+        }
+        
+        .back-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background: #1976D2;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #333;
+        }
+        
+        .tournament-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #2196F3;
+        }
+        
+        .tournament-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .tournament-info {
+            margin-bottom: 1rem;
+        }
+        
+        .tournament-info p {
+            margin: 0.5rem 0;
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .delete-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .delete-btn:hover {
+            background: #da190b;
+        }
+        
+        .full-tournament {
+            color: #f44336;
+            font-weight: bold;
+            padding: 1rem;
+            background: #ffebee;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .submit-button:hover {
+            background: #45a049;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .error-message {
+            color: #f44336;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .login-container {
+            max-width: 500px;
+            margin: 5rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .admin-panel-content {
+            display: none;
+        }
+        
+        .admin-panel-content.active {
+            display: block;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tab-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab-button.active {
+            color: #2196F3;
+            border-bottom-color: #2196F3;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .create-tournament-form {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .history-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span>🎮</span>
+                <span data-i18n="adminPanel">Админ Панелі</span>
+            </div>
+            <div class="header-right">
+                <div class="language-switcher">
+                    <button onclick="changeLanguage('kz')" id="langKz" class="active">Қаз</button>
+                    <button onclick="changeLanguage('ru')" id="langRu">Рус</button>
+                </div>
+                <a href="index.html" class="back-btn" data-i18n="backToHome">Басты бетке</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Container -->
+    <div class="container">
+        <div id="loginContainer" class="login-container">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;" data-i18n="adminLogin">Админ Панельге Кіру</h2>
+            <form onsubmit="handleAdminLogin(event)">
+                <div class="form-group">
+                    <label data-i18n="password">Пароль:</label>
+                    <input type="password" id="adminPassword" class="password-input" required data-i18n-placeholder="enterPassword">
+                    <div class="error-message" id="passwordError"></div>
+                </div>
+                <button type="submit" class="submit-button" data-i18n="login">Кіру</button>
+            </form>
+        </div>
+
+        <!-- Admin Panel Content -->
+        <div id="adminPanelContent" class="admin-panel-content">
+            <h2 class="section-title" data-i18n="adminPanel">Админ Панелі</h2>
+            
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('active')" data-i18n="activeTournaments">Белсенді Турнирлер</button>
+                <button class="tab-button" onclick="switchTab('create')" data-i18n="createTournament">Турнир Құру</button>
+                <button class="tab-button" onclick="switchTab('history')" data-i18n="tournamentHistory">Турнир Тарихы</button>
+            </div>
+            
+            <!-- Active Tournaments Tab -->
+            <div id="activeTab" class="tab-content active">
+                <div id="adminTournamentsList">
+                    <!-- Admin tournaments list -->
+                </div>
+            </div>
+            
+            <!-- Create Tournament Tab -->
+            <div id="createTab" class="tab-content">
+                <div class="create-tournament-form">
+                    <h3 style="margin-bottom: 1.5rem; color: #4CAF50;" data-i18n="createTournament">Турнир Құру</h3>
+                    <form onsubmit="handleCreateTournament(event)">
+                        <div class="form-group">
+                            <label data-i18n="tournamentTitle">Турнир атауы:</label>
+                            <input type="text" id="tournamentTitle" required data-i18n-placeholder="tournamentTitlePlaceholder">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="date">Күні:</label>
+                            <input type="date" id="tournamentDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="time">Уақыты (сағат):</label>
+                            <input type="time" id="tournamentTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="maxPlayers">Максималды ойыншылар саны:</label>
+                            <input type="number" id="tournamentMaxPlayers" value="50" min="1" max="100" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="whatsappLink">WhatsApp топ сілтемесі:</label>
+                            <input type="url" id="tournamentWhatsappLink" required data-i18n-placeholder="whatsappLinkPlaceholder">
+                            <small style="color: #666; display: block; margin-top: 0.5rem;" data-i18n="whatsappLinkNote">Турнирге қатысушылар осы сілтеме арқылы WhatsApp тобына қосылады</small>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="rules">Ережелер:</label>
+                            <textarea id="tournamentRules" required data-i18n-placeholder="rulesPlaceholder" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="submit-button" data-i18n="createButton">Турнир құру</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Tournament History Tab -->
+            <div id="historyTab" class="tab-content">
+                <div id="tournamentHistoryList">
+                    <!-- Tournament history will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            kz: {
+                adminPanel: 'Админ Панелі',
+                backToHome: 'Басты бетке',
+                adminLogin: 'Админ Панельге Кіру',
+                password: 'Пароль:',
+                enterPassword: 'Парольді енгізіңіз',
+                login: 'Кіру',
+                wrongPassword: 'Қате пароль!',
+                activeTournaments: 'Белсенді Турнирлер',
+                createTournament: 'Турнир Құру',
+                tournamentHistory: 'Турнир Тарихы',
+                tournamentTitle: 'Турнир атауы:',
+                tournamentTitlePlaceholder: 'Мысалы: Free Fire Соло Турнирі',
+                date: 'Күні:',
+                time: 'Уақыты (сағат):',
+                maxPlayers: 'Максималды ойыншылар саны:',
+                whatsappLink: 'WhatsApp топ сілтемесі:',
+                whatsappLinkPlaceholder: 'https://chat.whatsapp.com/...',
+                whatsappLinkNote: 'Турнирге қатысушылар осы сілтеме арқылы WhatsApp тобына қосылады',
+                rules: 'Ережелер:',
+                rulesPlaceholder: 'Турнир ережелерін енгізіңіз...',
+                createButton: 'Турнир құру',
+                tournamentCreated: 'Турнир сәтті құрылды!',
+                fillAllFields: 'Барлық өрістерді толтырыңыз!',
+                players: 'Ойыншылар:',
+                noTournaments: 'Турнирлер жоқ',
+                noHistory: 'Тарих жоқ',
+                registeredPlayers: 'Тіркелген ойыншылар',
+                noRegisteredPlayers: 'Тіркелген ойыншылар жоқ',
+                addPlayer: 'Ойыншы қосу',
+                playerId: 'Ойын ID',
+                add: 'Қосу',
+                delete: 'Жою',
+                deleteTournament: 'Турнирді жою',
+                confirmDelete: 'Жоюға сенімдісіз бе?',
+                playerAdded: 'Ойыншы сәтті қосылды!',
+                playerDeleted: 'Ойыншы жойылды!',
+                playerExists: 'Бұл ID бұрын қосылған!',
+                tournamentFull: 'Турнир толып кетті!',
+                tournamentFullMessage: 'Турнир толып кетті',
+                joinWhatsApp: 'WhatsApp тобына қосылу',
+                enterGameId: 'Ойын ID-сын енгізіңіз!',
+                deletedAt: 'Жойылған уақыты:'
+            },
+            ru: {
+                adminPanel: 'Админ Панель',
+                backToHome: 'На главную',
+                adminLogin: 'Вход в Панель Администратора',
+                password: 'Пароль:',
+                enterPassword: 'Введите пароль',
+                login: 'Войти',
+                wrongPassword: 'Неверный пароль!',
+                activeTournaments: 'Активные Турниры',
+                createTournament: 'Создать Турнир',
+                tournamentHistory: 'История Турниров',
+                tournamentTitle: 'Название турнира:',
+                tournamentTitlePlaceholder: 'Например: Турнир Free Fire Соло',
+                date: 'Дата:',
+                time: 'Время (час):',
+                maxPlayers: 'Максимальное количество игроков:',
+                whatsappLink: 'Ссылка на WhatsApp группу:',
+                whatsappLinkPlaceholder: 'https://chat.whatsapp.com/...',
+                whatsappLinkNote: 'Участники турнира присоединяются к WhatsApp группе по этой ссылке',
+                rules: 'Правила:',
+                rulesPlaceholder: 'Введите правила турнира...',
+                createButton: 'Создать турнир',
+                tournamentCreated: 'Турнир успешно создан!',
+                fillAllFields: 'Заполните все поля!',
+                players: 'Игроки:',
+                noTournaments: 'Нет турниров',
+                noHistory: 'Истории нет',
+                registeredPlayers: 'Зарегистрированные игроки',
+                noRegisteredPlayers: 'Нет зарегистрированных игроков',
+                addPlayer: 'Добавить игрока',
+                playerId: 'Игровой ID',
+                add: 'Добавить',
+                delete: 'Удалить',
+                deleteTournament: 'Удалить турнир',
+                confirmDelete: 'Вы уверены, что хотите удалить?',
+                playerAdded: 'Игрок успешно добавлен!',
+                playerDeleted: 'Игрок удален!',
+                playerExists: 'Этот ID уже добавлен!',
+                tournamentFull: 'Турнир заполнен!',
+                tournamentFullMessage: 'Турнир заполнен',
+                joinWhatsApp: 'Присоединиться к WhatsApp группе',
+                enterGameId: 'Введите игровой ID!',
+                deletedAt: 'Удалено:'
+            }
+        };
+
+        // Current language
+        let currentLanguage = localStorage.getItem('language') || 'kz';
+        
+        // Admin password
+        const ADMIN_PASSWORD = 'нуарли07';
+        
+        // API Base URL - Change this to your Render.com server URL
+        // For local development: http://localhost:5000/api
+        // For production: https://your-server.onrender.com/api
+        const API_BASE_URL = window.API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : '/api');
+        
+        // Tournaments storage
+        let tournaments = [];
+        let tournamentHistory = [];
+        let isAdminLoggedIn = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLanguage);
+            
+            // Check if already logged in
+            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+                isAdminLoggedIn = true;
+                showAdminPanel();
+            } else {
+                showLogin();
+            }
+        });
+
+        // Language functions
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            setLanguage(lang);
+            if (isAdminLoggedIn) {
+                loadAdminTournaments();
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Update language buttons
+            document.getElementById('langKz').classList.toggle('active', lang === 'kz');
+            document.getElementById('langRu').classList.toggle('active', lang === 'ru');
+            
+            // Update placeholders for create form
+            updatePlaceholders();
+        }
+        
+        function updatePlaceholders() {
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLanguage][key]) {
+                    el.placeholder = translations[currentLanguage][key];
+                }
+            });
+        }
+
+        function t(key) {
+            return translations[currentLanguage][key] || key;
+        }
+
+        // Admin login
+        function showLogin() {
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('adminPanelContent').classList.remove('active');
+        }
+
+        function showAdminPanel() {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('adminPanelContent').classList.add('active');
+            loadAdminTournaments();
+            loadTournamentHistory();
+            updatePlaceholders();
+        }
+        
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            if (tabName === 'active') {
+                document.getElementById('activeTab').classList.add('active');
+                document.querySelectorAll('.tab-button')[0].classList.add('active');
+                loadAdminTournaments();
+            } else if (tabName === 'create') {
+                document.getElementById('createTab').classList.add('active');
+                document.querySelectorAll('.tab-button')[1].classList.add('active');
+            } else if (tabName === 'history') {
+                document.getElementById('historyTab').classList.add('active');
+                document.querySelectorAll('.tab-button')[2].classList.add('active');
+                loadTournamentHistory();
+            }
+        }
+        
+        // Create tournament
+        async function handleCreateTournament(event) {
+            event.preventDefault();
+            
+            const titleKz = document.getElementById('tournamentTitle').value.trim();
+            const titleRu = document.getElementById('tournamentTitle').value.trim(); // Same for now, can be separated later
+            const date = document.getElementById('tournamentDate').value;
+            const time = document.getElementById('tournamentTime').value;
+            const maxPlayers = parseInt(document.getElementById('tournamentMaxPlayers').value) || 50;
+            const whatsappLink = document.getElementById('tournamentWhatsappLink').value.trim();
+            const rulesKz = document.getElementById('tournamentRules').value.trim();
+            const rulesRu = document.getElementById('tournamentRules').value.trim(); // Same for now
+            
+            if (!titleKz || !date || !time || !whatsappLink || !rulesKz) {
+                alert(t('fillAllFields'));
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-password': ADMIN_PASSWORD
+                    },
+                    body: JSON.stringify({
+                        title_kz: titleKz,
+                        title_ru: titleRu,
+                        game: 'freefire',
+                        category: 'solo',
+                        date: date,
+                        time: time,
+                        maxPlayers: maxPlayers,
+                        whatsappLink: whatsappLink,
+                        rules_kz: rulesKz,
+                        rules_ru: rulesRu
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    alert(data.error || 'Турнир құру кезінде қате пайда болды');
+                    return;
+                }
+                
+                // Reset form
+                document.getElementById('tournamentTitle').value = '';
+                document.getElementById('tournamentDate').value = '';
+                document.getElementById('tournamentTime').value = '';
+                document.getElementById('tournamentMaxPlayers').value = '50';
+                document.getElementById('tournamentWhatsappLink').value = '';
+                document.getElementById('tournamentRules').value = '';
+                
+                alert(t('tournamentCreated'));
+                
+                // Switch to active tournaments tab and reload
+                switchTab('active');
+            } catch (error) {
+                console.error('Error creating tournament:', error);
+                alert('Турнир құру кезінде қате пайда болды');
+            }
+        }
+        
+        // Load tournament history
+        async function loadTournamentHistory() {
+            const historyList = document.getElementById('tournamentHistoryList');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments/history`, {
+                    headers: {
+                        'x-admin-password': ADMIN_PASSWORD
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch history');
+                }
+                
+                tournamentHistory = await response.json();
+                
+                if (tournamentHistory.length === 0) {
+                    historyList.innerHTML = `<p style="text-align: center; padding: 2rem; color: #666;">${t('noHistory')}</p>`;
+                    return;
+                }
+                
+                historyList.innerHTML = tournamentHistory.map((tournament) => {
+                    const date = new Date(tournament.date);
+                    const formattedDate = date.toLocaleDateString(currentLanguage === 'kz' ? 'kk-KZ' : 'ru-RU');
+                    const deletedDate = new Date(tournament.deletedAt);
+                    const formattedDeletedDate = deletedDate.toLocaleDateString(currentLanguage === 'kz' ? 'kk-KZ' : 'ru-RU', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    const title = tournament.title?.kz || tournament.title || 'Турнир';
+                    const playersData = tournament.playersData || [];
+                    const playersCount = Array.isArray(playersData) ? playersData.length : 0;
+                    
+                    return `
+                        <div class="history-card">
+                            <h3 class="tournament-title">${title}</h3>
+                            <div class="tournament-info">
+                                <p><strong>${t('date')}</strong> ${formattedDate}</p>
+                                <p><strong>${t('time')}</strong> ${tournament.time}</p>
+                                <p><strong>${t('players')}</strong> ${playersCount} / ${tournament.maxPlayers}</p>
+                                <p><strong>${t('deletedAt')}</strong> ${formattedDeletedDate}</p>
+                                ${playersCount > 0 ? `
+                                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ddd;">
+                                        <strong>${t('registeredPlayers')} (${playersCount}):</strong>
+                                        <div style="margin-top: 0.5rem; max-height: 200px; overflow-y: auto;">
+                                            ${playersData.map((player) => `
+                                                <div style="margin: 0.5rem 0; padding: 0.5rem; background: #f5f5f5; border-radius: 4px;">
+                                                    <span><strong>ID:</strong> ${player.player_id || player.playerId}</span>
+                                                </div>
+                                            `).join('')}
+                                        </div>
+                                    </div>
+                                ` : `<p style="margin-top: 1rem; color: #666;">${t('noRegisteredPlayers')}</p>`}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Error loading history:', error);
+                historyList.innerHTML = `<p style="text-align: center; padding: 2rem; color: #f44336;">Қате пайда болды</p>`;
+            }
+        }
+
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const password = document.getElementById('adminPassword').value;
+            const errorDiv = document.getElementById('passwordError');
+
+            if (password === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                document.getElementById('adminPassword').value = '';
+                errorDiv.textContent = '';
+                showAdminPanel();
+            } else {
+                errorDiv.textContent = t('wrongPassword');
+            }
+        }
+
+        // Load admin tournaments
+        async function loadAdminTournaments() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments?lang=${currentLanguage}`, {
+                    headers: {
+                        'x-admin-password': ADMIN_PASSWORD
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch tournaments');
+                }
+                
+                const data = await response.json();
+                tournaments = data;
+                renderAdminTournaments();
+            } catch (error) {
+                console.error('Error loading tournaments:', error);
+                tournaments = [];
+                renderAdminTournaments();
+            }
+        }
+        
+        // Render admin tournaments
+        function renderAdminTournaments() {
+            const list = document.getElementById('adminTournamentsList');
+            
+            if (tournaments.length === 0) {
+                list.innerHTML = `<p style="text-align: center; padding: 2rem;">${t('noTournaments')}</p>`;
+                return;
+            }
+
+            list.innerHTML = tournaments.map((tournament) => {
+                const date = new Date(tournament.date);
+                const formattedDate = date.toLocaleDateString(currentLanguage === 'kz' ? 'kk-KZ' : 'ru-RU');
+                const playersCount = tournament.currentPlayers || 0;
+                const isFull = playersCount >= tournament.maxPlayers;
+                const title = tournament.titleText || tournament.title.kz || tournament.title;
+                
+                return `
+                    <div class="tournament-card">
+                        <h3 class="tournament-title">${title}</h3>
+                        <div class="tournament-info">
+                            <p><strong>${t('date')}</strong> ${formattedDate}</p>
+                            <p><strong>${t('time')}</strong> ${tournament.time}</p>
+                            <p><strong>${t('players')}</strong> ${playersCount} / ${tournament.maxPlayers}</p>
+                            ${isFull ? `<div class="full-tournament">${t('tournamentFullMessage')}</div>` : ''}
+                            ${tournament.whatsappLink ? `
+                                <div style="margin-top: 1rem; padding: 1rem; background: #25D366; border-radius: 8px; text-align: center;">
+                                    <a href="${tournament.whatsappLink}" target="_blank" style="color: white; text-decoration: none; font-weight: bold;">
+                                        📱 ${t('joinWhatsApp')}
+                                    </a>
+                                </div>
+                            ` : ''}
+                            <div id="playersList_${tournament.id}" style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                                <strong>${t('registeredPlayers')}:</strong>
+                                <div id="playersContainer_${tournament.id}" style="margin-top: 0.5rem; max-height: 300px; overflow-y: auto;">
+                                    <p style="color: #666;">${t('loading') || 'Жүктелуде...'}</p>
+                                </div>
+                            </div>
+                            ${!isFull ? `
+                                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+                                    <h4 style="margin-bottom: 1rem;">${t('addPlayer')}</h4>
+                                    <form onsubmit="addPlayer(${tournament.id}, event)" style="display: flex; gap: 0.5rem;">
+                                        <input type="text" id="newPlayerId_${tournament.id}" placeholder="${t('playerId')}" required style="flex: 1; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                                        <button type="submit" style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">${t('add')}</button>
+                                    </form>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <button class="delete-btn" onclick="deleteTournament(${tournament.id})">${t('deleteTournament')}</button>
+                    </div>
+                `;
+            }).join('');
+            
+            // Load players for each tournament
+            tournaments.forEach(tournament => {
+                loadTournamentPlayers(tournament.id);
+            });
+        }
+        
+        // Load players for a tournament
+        async function loadTournamentPlayers(tournamentId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments/${tournamentId}/registrations`, {
+                    headers: {
+                        'x-admin-password': ADMIN_PASSWORD
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch players');
+                }
+                
+                const players = await response.json();
+                const container = document.getElementById(`playersContainer_${tournamentId}`);
+                
+                if (players.length === 0) {
+                    container.innerHTML = `<p style="color: #666;">${t('noRegisteredPlayers')}</p>`;
+                    return;
+                }
+                
+                container.innerHTML = players.map((player) => `
+                    <div style="margin: 0.5rem 0; padding: 0.75rem; background: #f5f5f5; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>ID:</strong> ${player.playerId}</span>
+                        <button onclick="removePlayer(${tournamentId}, '${player.playerId}')" style="background: #f44336; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.875rem;">${t('delete')}</button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading players:', error);
+                const container = document.getElementById(`playersContainer_${tournamentId}`);
+                if (container) {
+                    container.innerHTML = `<p style="color: #f44336;">Қате пайда болды</p>`;
+                }
+            }
+        }
+
+        async function deleteTournament(tournamentId) {
+            if (!confirm(t('confirmDelete'))) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments/${tournamentId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'x-admin-password': ADMIN_PASSWORD
+                    }
+                });
+                
+                if (!response.ok) {
+                    const data = await response.json();
+                    alert(data.error || 'Турнирді жою кезінде қате пайда болды');
+                    return;
+                }
+                
+                alert('Турнир сәтті жойылды');
+                loadAdminTournaments();
+            } catch (error) {
+                console.error('Error deleting tournament:', error);
+                alert('Турнирді жою кезінде қате пайда болды');
+            }
+        }
+
+        // Add player (admin only)
+        async function addPlayer(tournamentId, event) {
+            event.preventDefault();
+            const playerIdInput = document.getElementById(`newPlayerId_${tournamentId}`);
+            const playerId = playerIdInput.value.trim();
+            
+            if (!playerId) {
+                alert(t('enterGameId'));
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments/${tournamentId}/players`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-admin-password': ADMIN_PASSWORD
+                    },
+                    body: JSON.stringify({
+                        playerId: playerId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    alert(data.error || t('playerExists'));
+                    return;
+                }
+                
+                playerIdInput.value = '';
+                loadTournamentPlayers(tournamentId);
+                alert(t('playerAdded'));
+            } catch (error) {
+                console.error('Error adding player:', error);
+                alert('Ойыншыны қосу кезінде қате пайда болды');
+            }
+        }
+
+        // Remove player (admin only)
+        async function removePlayer(tournamentId, playerId) {
+            if (!confirm(t('confirmDelete'))) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/tournaments/${tournamentId}/players/${playerId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'x-admin-password': ADMIN_PASSWORD
+                    }
+                });
+                
+                if (!response.ok) {
+                    const data = await response.json();
+                    alert(data.error || 'Ойыншыны жою кезінде қате пайда болды');
+                    return;
+                }
+                
+                loadTournamentPlayers(tournamentId);
+                alert(t('playerDeleted'));
+            } catch (error) {
+                console.error('Error removing player:', error);
+                alert('Ойыншыны жою кезінде қате пайда болды');
+            }
+        }
+    </script>
+</body>
+</html>
+
